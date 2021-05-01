@@ -8,10 +8,10 @@ using namespace std;
 int main()
 {
     int liczba_ludzi;
-    float wymiary = 25.;
+    float wymiary = 25., promien_sprawdzania = 1., promien_przeprowadzki = 1.0;
     cout<<"Prosze o podanie liczby Mieszkancow: ";
     cin>>liczba_ludzi;
-    Miasto m(liczba_ludzi, wymiary, 10.);
+    Miasto m(liczba_ludzi, wymiary, promien_sprawdzania, promien_przeprowadzki);
     m.zaludnij();
     m.zapisz_i_narysuj();
     for(int i=0; i<20; i++){

@@ -8,15 +8,13 @@ class Miasto;
 
 class Kibic{
     public:
-        int index, klub;
+        int index, klub, kolumna, wiersz;
         float x, y;
         string nazwa_klubu;
         Kibic(float, float, int, int, string);
         virtual ~Kibic();
         int zadowolenie(Miasto, int&);
         void przeprowadzka(float&, float);
-    protected:
-
     private:
         bool czy_w_promieniu(float, float, float, float, float);
         bool czy_sasiaduja(Kibic, float, float, float);

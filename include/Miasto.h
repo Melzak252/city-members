@@ -9,10 +9,11 @@ class Miasto
 {
     public:
         int liczba_kibicow;
-        std::vector<Kibic> kibice;
+        std::vector<std::vector<Kibic>>pola_miasta;
+        std::vector<Kibice> kibice;
         float promien_sprawdzania, promien_przeprowadzki, wymiary;
 
-        Miasto(int, float, float);
+        Miasto(int, float, float, float, float);
         virtual ~Miasto();
 
         void zaludnij();

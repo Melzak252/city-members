@@ -19,12 +19,13 @@ void printProgress(double percentage) {
     fflush(stdout);
 }
 
-Miasto::Miasto(int N, float xy, float r = 10.)
+Miasto::Miasto(int N, float xy, float promien_sprawdzania = 10., float promien_przeprowadzki = 1.)
 {
     cout<<"Witaj w naszym miescie!!!"<<endl;
     Miasto::liczba_kibicow = N;
     Miasto::wymiary = xy;
-    Miasto::promien_sprawdzania = r;
+    Miasto::promien_sprawdzania = promien_sprawdzania;
+    Miasto::promien_przeprowadzki = promien_przeprowadzki;
 
 }
 
@@ -54,7 +55,6 @@ void Miasto::zaludnij(){
         }
 
         kibice.push_back(Kibic(x, y, index, index%2, nazwa_klubu));
-        kibice.pop
     }
 }
 
