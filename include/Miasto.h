@@ -9,7 +9,7 @@ class Miasto
 {
     public:
         int liczba_kibicow;
-        std::vector<std::vector<Kibic>>pola_miasta;
+        std::vector< std::vector<KibicBaza> >pola_miasta;
         std::vector<Kibic> kibice;
         float promien_sprawdzania, promien_przeprowadzki, wymiary, stosunek;
 

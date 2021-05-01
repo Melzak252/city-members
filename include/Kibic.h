@@ -6,12 +6,14 @@ using namespace std;
 
 class Miasto;
 
-class Kibic{
+
+class Kibic: public KibicBaza
+{
     public:
-        int index, klub, kolumna, wiersz;
+        int klub, kolumna, wiersz;
         float x, y;
         string nazwa_klubu;
-        Kibic(float, float, int, int, string);
+        Kibic(float, float, int, string);
         virtual ~Kibic();
         int zadowolenie(Miasto, int&);
         void przeprowadzka(float&, float);

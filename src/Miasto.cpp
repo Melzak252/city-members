@@ -1,16 +1,16 @@
 #include<cstdlib>
 #include<ctime>
 #include<fstream>
-#include "../include/Miasto.h"
-#include "../helper.cpp"
-#include "Kibic.cpp"
-#include <thread>
 #include <cmath>
 #include <vector>
 
+#include "KibicBaza.cpp"
+#include "../include/Miasto.h"
+#include "../helper.cpp"
+#include "Kibic.cpp"
+
+
 using namespace std;
-
-
 
 Miasto::Miasto(int N, float stosunek, float wymiary, float promien_sprawdzania = 10., float promien_przeprowadzki = 1.)
 {
@@ -37,13 +37,13 @@ void Miasto::zaludnij(){
     for(int i=0; i<kibice_legii; i++){
         float x = RandomFloat(0, Miasto::wymiary);
         float y = RandomFloat(0, Miasto::wymiary);
-
+        Miasto::pola_miasta[floor(x)][floor(y)].push_back(KibicBaza(x, y, 0));
         Miasto::kibice.push_back(Kibic(x, y, 0, "Legia"));
     }
     for(int i=0; i<kibice_poloni; i++){
         float x = RandomFloat(0, Miasto::wymiary);
         float y = RandomFloat(0, Miasto::wymiary);
-
+        Miasto::pola_miasta[floor(x)][floor(y)].push_back(KibicBaza(x, y, 1));
         Miasto::kibice.push_back(Kibic(x, y, 1, "Polonia"));
     }
 }

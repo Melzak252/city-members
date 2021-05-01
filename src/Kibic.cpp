@@ -1,7 +1,6 @@
 #include "../include/Kibic.h"
 #include <iostream>
 #include<cmath>
-#include <thread>
 #include "math.h"
 
 using namespace std;
@@ -9,11 +8,10 @@ using namespace std;
 class Miasto;
 
 
-Kibic::Kibic(float x, float y, int index, int klub, string nazwa_klubu)
+Kibic::Kibic(float x, float y, int klub, string nazwa_klubu): KibicBaza(x, y, klub)
 {
     Kibic::x = x;
     Kibic::y = y;
-    Kibic::index = index;
     Kibic::klub = klub;
     Kibic::nazwa_klubu = nazwa_klubu;
     Kibic::kolumna = floor(x);
@@ -45,16 +43,15 @@ int Kibic::zadowolenie(Miasto miasto, int &przeciwny_klub)
 
     for(int index_kibica=0; index_kibica<miasto.liczba_kibicow; index_kibica++){
 
-        if(index_kibica!=Kibic::index){
-            float x_drugiego, y_drugiego, odleglosc;
-            x_drugiego = miasto.kibice[index_kibica].x;
-            y_drugiego = miasto.kibice[index_kibica].y;
 
-            if(Kibic::czy_sasiaduja(miasto.kibice[index_kibica], miasto.promien_sprawdzania, miasto.wymiary, odleglosc)){
-                    if(miasto.kibice[index_kibica].klub==Kibic::klub) przyjazny_klub++;
-                    else przeciwny_klub++;
+          float x_drugiego, y_drugiego, odleglosc;
+          x_drugiego = miasto.kibice[index_kibica].x;
+          y_drugiego = miasto.kibice[index_kibica].y;
 
-            }
+          if(Kibic::czy_sasiaduja(miasto.kibice[index_kibica], miasto.promien_sprawdzania, miasto.wymiary, odleglosc)){
+                  if(miasto.kibice[index_kibica].klub==Kibic::klub) przyjazny_klub++;
+                  else przeciwny_klub++;
+
 
         }
     }
