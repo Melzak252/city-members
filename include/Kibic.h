@@ -18,8 +18,6 @@ class Kibic{
     private:
         bool czy_w_promieniu(float, float, float, float, float);
         bool czy_sasiaduja(Kibic, float, float, float);
-        float RandomFloat(float, float);
-
 };
 
 #endif // KIBIC_H

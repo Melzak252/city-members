@@ -2,6 +2,7 @@
 #include <iostream>
 #include<cmath>
 #include <thread>
+#include "math.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ Kibic::Kibic(float x, float y, int index, int klub, string nazwa_klubu)
     Kibic::index = index;
     Kibic::klub = klub;
     Kibic::nazwa_klubu = nazwa_klubu;
+    Kibic::kolumna = floor(x);
+    Kibic::wiersz = floor(y);
 }
 
 Kibic::~Kibic()
@@ -75,11 +78,4 @@ void Kibic::przeprowadzka(float &wymiary, float promien_przeprowadzki=1.){
 
     if(Kibic::y>wymiary) Kibic::y -= wymiary;
     else if(Kibic::y<0) Kibic::y += wymiary;
-}
-
-float Kibic::RandomFloat(float a, float b) {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return round((a + r*1000.))/1000.;
 }

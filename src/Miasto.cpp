@@ -2,28 +2,22 @@
 #include<ctime>
 #include<fstream>
 #include "../include/Miasto.h"
+#include "../helper.cpp"
 #include "Kibic.cpp"
 #include <thread>
 #include <cmath>
-#define PBSTR "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-#define PBWIDTH 60
+#include <vector>
+
 using namespace std;
 
 
 
-void printProgress(double percentage) {
-    int val = (int) (percentage * 100);
-    int lpad = (int) (percentage * PBWIDTH);
-    int rpad = PBWIDTH - lpad;
-    printf("\r%3d%% [%.*s%*s]", val, lpad, PBSTR, rpad, "");
-    fflush(stdout);
-}
-
-Miasto::Miasto(int N, float xy, float promien_sprawdzania = 10., float promien_przeprowadzki = 1.)
+Miasto::Miasto(int N, float stosunek, float wymiary, float promien_sprawdzania = 10., float promien_przeprowadzki = 1.)
 {
     cout<<"Witaj w naszym miescie!!!"<<endl;
     Miasto::liczba_kibicow = N;
-    Miasto::wymiary = xy;
+    Miasto::stosunek = stosunek;
+    Miasto::wymiary = wymiary;
     Miasto::promien_sprawdzania = promien_sprawdzania;
     Miasto::promien_przeprowadzki = promien_przeprowadzki;
 
@@ -35,26 +29,22 @@ Miasto::~Miasto()
 }
 
 void Miasto::zaludnij(){
-    srand(time(NULL));
-    for(int index=0; index<liczba_kibicow; index++)
-    {
-        int k;
-        float x, y;
-        string nazwa_klubu;
-        x = RandomFloat(0, Miasto::wymiary);
-        y = RandomFloat(0, Miasto::wymiary);
-        switch(index%2){
-        case 0:
-            nazwa_klubu = "Legia";
-        break;
-        case 1:
-            nazwa_klubu = "Polonia";
-        break;
-        default:
-            cout<<"Ups cos poszlo nie tak z dzieleniem"<<endl;
-        }
+    int kibice_legii = (int)(Miasto::stosunek*Miasto::liczba_kibicow);
+    int kibice_poloni = Miasto::liczba_kibicow - kibice_legii;
 
-        kibice.push_back(Kibic(x, y, index, index%2, nazwa_klubu));
+    cout<<"Liczba kibicow Legii: "<<kibice_legii<<endl;
+    cout<<"Liczba kibicow Polonii: "<<kibice_poloni<<endl;
+    for(int i=0; i<kibice_legii; i++){
+        float x = RandomFloat(0, Miasto::wymiary);
+        float y = RandomFloat(0, Miasto::wymiary);
+
+        Miasto::kibice.push_back(Kibic(x, y, 0, "Legia"));
+    }
+    for(int i=0; i<kibice_poloni; i++){
+        float x = RandomFloat(0, Miasto::wymiary);
+        float y = RandomFloat(0, Miasto::wymiary);
+
+        Miasto::kibice.push_back(Kibic(x, y, 1, "Polonia"));
     }
 }
 
@@ -112,11 +102,4 @@ void Miasto::ewoluuj(){
         }
     }
     cout<<licznik<<" przemieszczono!!!"<<endl;
-}
-
-float Miasto::RandomFloat(float a, float b) {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return round((a + r*1000.))/1000.;
 }
