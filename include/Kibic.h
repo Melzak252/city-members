@@ -1,27 +1,22 @@
 #ifndef KIBIC_H
 #define KIBIC_H
 #include<iostream>
+#include "KibicBaza.h"
 
 using namespace std;
 
+
 class Miasto;
 
-class Kibic{
+class Kibic: public KibicBaza{
     public:
-        int index, klub;
-        float x, y;
-        string nazwa_klubu;
-        Kibic(float, float, int, int, string);
+        Kibic(string, float);
+        Kibic(float, float, string);
         virtual ~Kibic();
-        int zadowolenie(Miasto, int&);
-        void przeprowadzka(float&, float);
-    protected:
-
-    private:
-        bool czy_w_promieniu(float, float, float, float, float);
-        bool czy_sasiaduja(Kibic, float, float, float);
-        float RandomFloat(float, float);
-
+        friend ostream& operator<<(ostream&, Kibic*);
+      protected:
+        virtual bool czy_w_promieniu(float, float, float, float, float);
+        virtual bool czy_sasiaduja(KibicBaza*, float, float);
 };
 
 #endif // KIBIC_H
