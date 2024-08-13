@@ -193,7 +193,7 @@ void City::draw(const std::string &file_name, const int size, const float r) con
 
     for (int i = 0; i < size; i++) {
         for (int k = 0; k < size; k++) {
-            file << R[k][i] << " " << G[k][i] << " " << B[k][i] << std::endl;
+            fmt::println(file,"{} {} {}", R[k][i], G[k][i], B[k][i]);
         }
         printProgress(0.5 + 0.5 * i / size);
     }
