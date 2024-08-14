@@ -1,8 +1,9 @@
 import math
 import tqdm
 import imageio
+from pathlib import Path
 
-from src.party import Party
+from member import Member
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +11,7 @@ import matplotlib.pyplot as plt
 plt.style.use("dark_background")
 
 
-def distance(p1: Party, p2: Party):
+def distance(p1: Member, p2: Member):
     return math.dist(p1.coords, p2.coords)
 
 
@@ -25,28 +26,28 @@ class City:
         self.move_out_dist = move_out_dist
 
     def populate(self, population_size):
-        self.population: list[Party] = [Party(x, y, (i % 2) * 2 - 1) for i, (x, y) in
+        self.population: list[Member] = [Member(x, y, (i % 2) * 2 - 1) for i, (x, y) in
                                         enumerate(np.random.uniform(0, self.size, size=(population_size, 2)))]
 
     def next_year(self):
 
-        for p in self.population:
-            p.neigbourhood = 0
+        for m1 in self.population:
+            m1.neigbourhood = 0
 
-        move_out = []
-        for i, p in tqdm.tqdm(enumerate(self.population), total=len(self.population)):
-            for p1 in self.population[i:]:
-                if distance(p, p1) < self.neigh_dist:
-                    tmp = p.type * p1.type
+        move_out: list[Member] = []
+        for i, m1 in tqdm.tqdm(enumerate(self.population), total=len(self.population)):
+            for m2 in self.population[i:]:
+                if distance(m1, m2) < self.neigh_dist:
+                    tmp = m1.type * m2.type
 
-                    p.neigbourhood += tmp
-                    p1.neigbourhood += tmp
+                    m1.neigbourhood += tmp
+                    m2.neigbourhood += tmp
 
-            if p.neigbourhood < 0:
-                move_out.append(p)
+            if m1.neigbourhood < 0:
+                move_out.append(m1)
 
-        for p in move_out:
-            p.move_out(self.move_out_dist, self.size)
+        for m1 in move_out:
+            m1.move_out(self.move_out_dist, self.size)
 
         self.plot()
 
@@ -58,9 +59,12 @@ class City:
         colours = ["red" if p.type > 0 else "blue" for p in self.population]
         plt.scatter(x_axis, y_axis, c=colours, s=1)
         plt.axis("off")
-
-        # plt.imsave(f"../fig/year_{self.current_year}.png")
-        plt.savefig(f"../fig/year_{self.current_year}.png", bbox_inches='tight', pad_inches=0, dpi=400)
+        
+        d = Path("fig")
+        if not d.is_dir():
+            d.mkdir()
+        
+        plt.savefig(f"fig/year_{self.current_year}.png", bbox_inches='tight', pad_inches=0, dpi=400)
 
     def make_gif(self):
         frames = [imageio.v2.imread(f'../fig/year_{t}.png') for t in range(self.current_year)]

@@ -6,7 +6,7 @@ if __name__ == '__main__':
     c.plot()
     for _ in range(100):
         c.next_year()
-    c.current_year = 61
+
     c.make_gif()
     print("Finished")
     
